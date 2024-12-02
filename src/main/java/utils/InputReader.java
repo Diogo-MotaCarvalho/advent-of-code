@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class InputReader {
+
     public static List<String> readInputAsList(String fileName) {
         try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/inputs/" + fileName))) {
             return lines.toList();
