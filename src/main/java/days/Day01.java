@@ -32,8 +32,6 @@ public class Day01 implements Day {
             distance += Math.abs(leftIterator.next() - rightIterator.next());
         }
 
-        System.out.println(distance);
-
         return distance;
     }
 
