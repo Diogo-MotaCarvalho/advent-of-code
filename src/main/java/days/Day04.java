@@ -90,6 +90,6 @@ public class Day04 implements Day {
                      //             .A.
                      //      [1][-1]M.S[1][1]
                      //
-                     //1967 X
+                     //1967
                      //
                      //
