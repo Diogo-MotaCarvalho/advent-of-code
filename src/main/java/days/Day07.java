@@ -7,47 +7,54 @@ public class Day07 implements Day {
 
     @Override
     public int part1(List<String> strings) {
-        Map<Integer, List<Integer>> infoMap = getInfoMap(strings);
-        int count = 0;
-        for (Map.Entry<Integer, List<Integer>> entry : infoMap.entrySet()) {
+        Map<Long, List<Long>> infoMap = getInfoMap(strings);
+        long count =0;
+        for (Map.Entry<Long, List<Long>> entry : infoMap.entrySet()) {
             if (verifyValues(entry.getKey(), entry.getValue())) {
                 count += entry.getKey();
             }
         }
-        return count;
+        System.out.println(count);
+        return 0;
     }
 
     @Override
     public int part2(List<String> strings) {
+        Map<Long, List<Long>> infoMap = getInfoMap(strings);
+        long count = 0;
+        for (Map.Entry<Long, List<Long>> entry : infoMap.entrySet()) {
+            if (verifyValuesPart2(entry.getKey(), entry.getValue())) {
+                count += entry.getKey();
+            }
+        }
+        System.out.println(count);
         return 0;
     }
 
-    private Map<Integer, List<Integer>> getInfoMap(List<String> strings) {
-        Map<Integer, List<Integer>> infoMap = new HashMap<>();
+    private Map<Long, List<Long>> getInfoMap(List<String> strings) {
+        Map<Long, List<Long>> infoMap = new HashMap<>();
         for (String s : strings) {
             String[] split = s.split(":");
             String[] split2 = split[1].split(" ");
-            List<Integer> list = new ArrayList<>();
+            List<Long> list = new ArrayList<>();
 
             for (String number : split2) {
                 if (!number.trim().isEmpty()) {
-                    list.add(Integer.parseInt(number.trim()));
+                    list.add(Long.parseLong(number.trim()));
                 }
             }
-
-            infoMap.put(Integer.parseInt(split[0].trim()), list);
+            infoMap.put(Long.parseLong(split[0].trim()), list);
         }
         return infoMap;
     }
 
 
-    private boolean verifyValues(Integer target, List<Integer> values) {
-        Set<Integer> sums = new HashSet<>();
-        sums.add(0);
-
-        for (int value : values) {
-            Set<Integer> newSums = new HashSet<>();
-            for (int sum : sums) {
+    private boolean verifyValues(Long target, List<Long> values) {
+        Set<Long> sums = new HashSet<>();
+        sums.add(0L);
+        for (long value : values) {
+            Set<Long> newSums = new HashSet<>();
+            for (long sum : sums) {
                 newSums.add(sum + value);
                 newSums.add(sum * value);
             }
@@ -55,4 +62,24 @@ public class Day07 implements Day {
         }
         return sums.contains(target);
     }
+    //190: 10 19
+
+    private boolean verifyValuesPart2(Long target, List<Long> values) {
+        Set<Long> sums = new HashSet<>();
+        sums.add(0L);
+
+        for (long value : values) {
+            Set<Long> newSums = new HashSet<>();
+            for (long sum : sums) {
+                newSums.add(sum + value);
+                newSums.add(sum * value);
+                long concatValue = Long.parseLong(sum + "" + value);
+                newSums.add(concatValue);
+            }
+            sums = newSums;
+        }
+        return sums.contains(target);
+    }
 }
+
+//24556
